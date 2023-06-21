@@ -59,8 +59,8 @@ void pint_op(stack_t **stack, unsigned int line_number)
 	printf("%d\n", (*stack)->n);
 }
 /**
- * pop_op - prints the value at the top of the stack
- * @stack: the stack to be printed from
+ * pop_op - pops the value at the top of the stack
+ * @stack: the stack
  * @line_number: the line number
  */
 void pop_op(stack_t **stack, unsigned int line_number)
@@ -86,4 +86,27 @@ void pop_op(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = NULL;
 		free(current);
 	}
+}
+/**
+ * swap_op - prints the value at the top of the stack
+ * @stack: the stack to be printed from
+ * @line_number: the line number
+ */
+void swap_op(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current, *next;
+	int temp;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+		free_stack(*stack);
+		fclose(file);
+		exit(EXIT_FAILURE);
+	}
+	current = *stack;
+	next = current->next;
+	temp = current->n;
+	current->n = next->n;
+	next->n = temp;
 }
