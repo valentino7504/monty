@@ -1,10 +1,9 @@
 #ifndef MONTY_H
 #define MONTY_H
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdarg.h>
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: the integer
@@ -47,6 +46,7 @@ typedef struct global_variables
 	char *line;
 } globals;
 extern globals global;
+char *_strdup(char *str);
 void free_instruction(void);
 void file_error(char *file_name);
 void generic_error(char *message, stack_t *stack);

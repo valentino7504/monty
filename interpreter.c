@@ -12,7 +12,8 @@ int main(int argc, char **argv)
 	unsigned int line_no = 1;
 	char *opcode;
 	FILE *file;
-	size_t n = 0;
+	size_t n;
+	char line[1024];
 
 	monty_stack = NULL;
 	if (argc != 2)
@@ -20,14 +21,19 @@ int main(int argc, char **argv)
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 		file_error(argv[1]);
-	while ((getline(&global.line, &n, file)) != -1)
+	while (fgets(line, sizeof(line), file) != NULL)
 	{
+		n = strlen(line);
+		if (n > 0 && line[n - 1] == '\n')
+			line[n - 1] = '\0';
+		global.line = _strdup(line);
 		global.instruction = NULL;
 		opcode = strtok(global.line, " \t\n");
 		check_opcode(opcode, line_no, monty_stack);
 		global.instruction = process_instruction(opcode, monty_stack);
 		global.instruction->f(&monty_stack, line_no);
 		line_no++;
+		free_line();
 		free_instruction();
 	}
 	free_stack(monty_stack);

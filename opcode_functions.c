@@ -13,6 +13,7 @@ void pall_op(stack_t **stack, unsigned int line_no)
 		printf("%d\n", current_element->n);
 		current_element = current_element->next;
 	}
+	(void) line_no;
 }
 /**
  * push_op - pushes to the monty stack

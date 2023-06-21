@@ -54,7 +54,7 @@ instruction_t *process_instruction(char *opcode, stack_t *stack)
 	new_instruction = malloc(sizeof(instruction_t));
 	if (new_instruction == NULL)
 		generic_error("Error: malloc failed\n", stack);
-	new_instruction->opcode = strdup(opcode);
+	new_instruction->opcode = _strdup(opcode);
 	if (new_instruction->opcode == NULL)
 		generic_error("Error: malloc failed\n", stack);
 	if (strcmp(opcode, "push") == 0)
