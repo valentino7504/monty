@@ -42,3 +42,19 @@ void push_op(stack_t **stack, unsigned int line_no)
 	new_element->prev = NULL;
 	*stack = new_element;
 }
+/**
+ * pint_op - prints the value at the top of the stack
+ * @stack: the stack to be printed from
+ * @line_number: the line number
+ */
+void pint_op(stack_t **stack, unsigned int line_number)
+{
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		free_stack(*stack);
+		fclose(file);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*stack)->n);
+}
