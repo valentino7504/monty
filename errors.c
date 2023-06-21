@@ -17,7 +17,8 @@ void generic_error(char *message, stack_t *monty_stack)
 {
 	free_stack(monty_stack);
 	fprintf(stderr, "%s", message);
-	fclose(file);
+	if (file)
+		fclose(file);
 	exit(EXIT_FAILURE);
 }
 /**
