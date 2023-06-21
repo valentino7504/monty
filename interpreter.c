@@ -1,4 +1,5 @@
 #include "monty.h"
+FILE *file;
 /**
  * main - this is the main monty interpreter function
  * @argc: the number of command line arguments
@@ -10,7 +11,6 @@ int main(int argc, char **argv)
 	unsigned int line_no = 1;
 	char *opcode;
 	stack_t *monty_stack;
-	FILE *file;
 	int n;
 	char line[1024];
 

@@ -41,5 +41,6 @@ void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_no, opcode);
 	free_stack(*monty_stack);
+	fclose(file);
 	exit(EXIT_FAILURE);
 }

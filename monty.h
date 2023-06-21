@@ -32,6 +32,7 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+extern FILE *file;
 char *_strdup(char *str);
 void file_error(char *file_name);
 void generic_error(char *message, stack_t *monty_stack);
