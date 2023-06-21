@@ -58,3 +58,32 @@ void pint_op(stack_t **stack, unsigned int line_number)
 	}
 	printf("%d\n", (*stack)->n);
 }
+/**
+ * pop_op - prints the value at the top of the stack
+ * @stack: the stack to be printed from
+ * @line_number: the line number
+ */
+void pop_op(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current;
+
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		free_stack(*stack);
+		fclose(file);
+		exit(EXIT_FAILURE);
+	}
+	current = *stack;
+	if (current->next == NULL)
+	{
+		free(current);
+		*stack = NULL;
+	}
+	else
+	{
+		*stack = current->next;
+		(*stack)->prev = NULL;
+		free(current);
+	}
+}

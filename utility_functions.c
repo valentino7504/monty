@@ -27,7 +27,7 @@ int _isdigit(char *argument)
 void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 {
 	instruction_t instructions[] = {{"push", push_op}, {"pall", pall_op},
-	{"pint", pint_op}, {NULL, NULL}};
+	{"pint", pint_op}, {"pop", pop_op}, {NULL, NULL}};
 	int i = 0;
 
 	while (instructions[i].opcode != NULL)
