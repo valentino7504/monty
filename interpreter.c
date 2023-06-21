@@ -38,6 +38,5 @@ int main(int argc, char **argv)
 	}
 	free_stack(monty_stack);
 	fclose(file);
-	free_line();
 	return (0);
 }
