@@ -1,5 +1,4 @@
 #include "monty.h"
-stack_t *monty_stack;
 /**
  * main - this is the main monty interpreter function
  * @argc: the number of command line arguments
@@ -10,13 +9,14 @@ int main(int argc, char **argv)
 {
 	unsigned int line_no = 1;
 	char *opcode;
+	stack_t *monty_stack;
 	FILE *file;
-	size_t n;
+	int n;
 	char line[1024];
 
 	monty_stack = NULL;
 	if (argc != 2)
-		generic_error("USAGE: monty file\n");
+		generic_error("USAGE: monty file\n", monty_stack);
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 		file_error(argv[1]);
@@ -26,10 +26,10 @@ int main(int argc, char **argv)
 		if (n > 0 && line[n - 1] == '\n')
 			line[n - 1] = '\0';
 		opcode = strtok(line, " \t\n");
-		call_opcode(opcode, line_no);
+		call_opcode(opcode, line_no, &monty_stack);
 		line_no++;
 	}
-	free_stack();
+	free_stack(monty_stack);
 	fclose(file);
 	return (0);
 }

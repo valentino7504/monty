@@ -11,20 +11,22 @@ void file_error(char *file_name)
 /**
  * generic_error - generic error
  * @message: the error message
+ * @monty_stack: the stack
  */
-void generic_error(char *message)
+void generic_error(char *message, stack_t *monty_stack)
 {
-	free_stack();
+	free_stack(monty_stack);
 	fprintf(stderr, "%s", message);
 	exit(EXIT_FAILURE);
 }
 /**
  * push_error - prints push error
  * @line_no: the line number
+ * @monty_stack: the monty stack
  */
-void push_error(unsigned int line_no)
+void push_error(unsigned int line_no, stack_t *monty_stack)
 {
-	free_stack();
+	free_stack(monty_stack);
 	fprintf(stderr, "L%u: usage: push integer\n", line_no);
 	exit(EXIT_FAILURE);
 }

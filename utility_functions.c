@@ -22,8 +22,9 @@ int _isdigit(char *argument)
  * call_opcode - checks if an opcode is valid
  * @opcode: the opcode to check
  * @line_no: the line number
+ * @stack: the stack to be freed
  */
-void call_opcode(char *opcode, unsigned int line_no)
+void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 {
 	instruction_t instructions[] = {{"push", push_op}, {"pall", pall_op},
 	{NULL, NULL}};
@@ -33,12 +34,12 @@ void call_opcode(char *opcode, unsigned int line_no)
 	{
 		if (strcmp(opcode, instructions[i].opcode) == 0)
 		{
-			instructions[i].f(&monty_stack, line_no);
+			instructions[i].f(monty_stack, line_no);
 			return;
 		}
 		i++;
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_no, opcode);
-	free_stack();
+	free_stack(*monty_stack);
 	exit(EXIT_FAILURE);
 }

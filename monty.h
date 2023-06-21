@@ -32,17 +32,13 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-extern stack_t *monty_stack;
 char *_strdup(char *str);
-void free_instruction(void);
 void file_error(char *file_name);
-void generic_error(char *message);
-void call_opcode(char *opcode, unsigned int line_no);
-instruction_t *process_instruction(char *opcode, stack_t *stack);
-void free_line(void);
+void generic_error(char *message, stack_t *monty_stack);
+void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack);
 int _isdigit(char *argument);
 void pall_op(stack_t **stack, unsigned int line_number);
 void push_op(stack_t **stack, unsigned int line_number);
-void push_error(unsigned int line_no);
-void free_stack(void);
+void push_error(unsigned int line_no, stack_t *monty_stack);
+void free_stack(stack_t *monty_stack);
 #endif

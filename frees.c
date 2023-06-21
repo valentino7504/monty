@@ -1,8 +1,9 @@
 #include "monty.h"
 /**
  * free_stack - frees up the monty stack
+ * @monty_stack: stack to be freed
  */
-void free_stack(void)
+void free_stack(stack_t *monty_stack)
 {
 	stack_t *current_element = monty_stack, *next_element = NULL;
 
