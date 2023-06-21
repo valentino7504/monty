@@ -8,6 +8,8 @@ void pall_op(stack_t **stack, unsigned int line_no)
 {
 	stack_t *current_element = *stack;
 
+	if (*stack == NULL)
+		return;
 	while (current_element)
 	{
 		printf("%d\n", current_element->n);
