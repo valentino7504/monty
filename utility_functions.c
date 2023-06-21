@@ -22,7 +22,7 @@ int _isdigit(char *argument)
  * call_opcode - checks if an opcode is valid
  * @opcode: the opcode to check
  * @line_no: the line number
- * @stack: the stack to be freed
+ * @monty_stack: the stack to be freed
  */
 void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 {
