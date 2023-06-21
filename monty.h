@@ -32,30 +32,17 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-/**
- * struct global_variables - global variables
- * @instruction: the current opcode
- * @line: contents of the line
- *
- * Description: opcode and line value
- * for stack, queues, LIFO, FIFO
- */
-typedef struct global_variables
-{
-	instruction_t *instruction;
-	char *line;
-} globals;
-extern globals global;
+extern stack_t *monty_stack;
 char *_strdup(char *str);
 void free_instruction(void);
 void file_error(char *file_name);
-void generic_error(char *message, stack_t *stack);
-void check_opcode(char *opcode, unsigned int line_no, stack_t *stack);
+void generic_error(char *message);
+void call_opcode(char *opcode, unsigned int line_no);
 instruction_t *process_instruction(char *opcode, stack_t *stack);
 void free_line(void);
 int _isdigit(char *argument);
 void pall_op(stack_t **stack, unsigned int line_number);
 void push_op(stack_t **stack, unsigned int line_number);
-void push_error(unsigned int line_no, stack_t *stack);
-void free_stack(stack_t *stack);
+void push_error(unsigned int line_no);
+void free_stack(void);
 #endif

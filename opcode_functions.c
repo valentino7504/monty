@@ -28,11 +28,11 @@ void push_op(stack_t **stack, unsigned int line_no)
 
 	argument = strtok(NULL, " \t\n");
 	if (_isdigit(argument) != 0 || argument == NULL)
-		push_error(line_no, *stack);
+		push_error(line_no);
 	n = atoi(argument);
 	new_element = malloc(sizeof(stack_t));
 	if (new_element == NULL)
-		generic_error("Error: malloc failed\n", *stack);
+		generic_error("Error: malloc failed\n");
 	new_element->n = n;
 	if (*stack == NULL)
 	{
