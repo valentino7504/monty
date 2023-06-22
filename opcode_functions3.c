@@ -73,3 +73,48 @@ void pstr_op(stack_t **stack, unsigned int line_number)
 	}
 	printf("\n");
 }
+/**
+ * rotl_op - rotates stack to the top
+ * @stack: the stack
+ * @line_number: the line number
+ */
+void rotl_op(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current_element = *stack;
+	int temp;
+
+	(void) line_number;
+	if (*stack == NULL || (*stack)->next == NULL)
+		return;
+	temp = (*stack)->n;
+	while (current_element->next != NULL)
+	{
+		current_element->n = current_element->next->n;
+		current_element = current_element->next;
+	}
+	current_element->n = temp;
+}
+/**
+ * rotr_op - rotates stack to the bottom
+ * @stack: the stack
+ * @line_number: the line number
+ */
+void rotr_op(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current_element = *stack;
+
+	(void) line_number;
+	if (*stack == NULL)
+	{
+		printf("\n");
+		return;
+	}
+	while (current_element != NULL)
+	{
+		if (current_element->n <= 0 || current_element->n > 127)
+			break;
+		printf("%c", current_element->n);
+		current_element = current_element->next;
+	}
+	printf("\n");
+}
