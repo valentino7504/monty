@@ -23,8 +23,6 @@ int main(int argc, char **argv)
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		n = strlen(line);
-		if (line[0] == '\n')
-			continue;
 		if (n > 0 && line[n - 1] == '\n')
 			line[n - 1] = '\0';
 		opcode = strtok(line, " \t\n");
