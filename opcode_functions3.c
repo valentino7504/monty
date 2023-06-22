@@ -10,7 +10,7 @@ void mod_op(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		free_stack(*stack);
 		fclose(file);
 		exit(EXIT_FAILURE);
