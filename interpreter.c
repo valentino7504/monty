@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		if (n > 0 && line[n - 1] == '\n')
 			line[n - 1] = '\0';
 		opcode = strtok(line, " \t\n");
-		if (opcode == NULL)
+		if (opcode == NULL || strcmp(opcode, "#") == 0)
 			continue;
 		call_opcode(opcode, line_no, &monty_stack);
 		line_no++;
