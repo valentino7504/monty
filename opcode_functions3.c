@@ -102,19 +102,18 @@ void rotl_op(stack_t **stack, unsigned int line_number)
 void rotr_op(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current_element = *stack;
+	int temp;
 
 	(void) line_number;
-	if (*stack == NULL)
-	{
-		printf("\n");
+	if (*stack == NULL || (*stack)->next == NULL)
 		return;
-	}
-	while (current_element != NULL)
-	{
-		if (current_element->n <= 0 || current_element->n > 127)
-			break;
-		printf("%c", current_element->n);
+	while (current_element->next != NULL)
 		current_element = current_element->next;
+	temp = current_element->n;
+	while (current_element->prev != NULL)
+	{
+		current_element->n = current_element->prev->n;
+		current_element = current_element->prev;
 	}
-	printf("\n");
+	(*stack)->n = temp;
 }
