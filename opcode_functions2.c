@@ -46,6 +46,6 @@ void sub_op(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;
-	current->n = (-1 * current->n) + (*stack)->n;
+	current->n -= (*stack)->n;
 	pop_op(stack, line_number);
 }
