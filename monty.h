@@ -32,7 +32,19 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-extern FILE *file;
+/**
+ * struct instruction_s - opcode and its function
+ * @file: the file
+ * @mode: 0 - stack, 1 - queue
+ *
+ * Description: for stack, queues, LIFO, FIFO
+ */
+typedef struct global_s
+{
+	FILE *file;
+	int mode;
+} global_t;
+extern global_t globals;
 char *_strdup(char *str);
 void file_error(char *file_name);
 void generic_error(char *message, stack_t *monty_stack);

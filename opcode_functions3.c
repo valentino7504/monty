@@ -12,14 +12,14 @@ void mod_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->n == 0)
 	{
 		fprintf(stderr, "L%u: division by zero\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;
@@ -37,14 +37,14 @@ void pchar_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->n < 0 || (*stack)->n > 127)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	printf("%c\n", (*stack)->n);

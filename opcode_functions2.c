@@ -22,7 +22,7 @@ void add_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;
@@ -42,7 +42,7 @@ void sub_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;
@@ -62,14 +62,14 @@ void div_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	if ((*stack)->n == 0)
 	{
 		fprintf(stderr, "L%u: division by zero\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;
@@ -89,7 +89,7 @@ void mul_op(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		free_stack(*stack);
-		fclose(file);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 	current = (*stack)->next;

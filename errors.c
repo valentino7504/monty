@@ -17,8 +17,8 @@ void generic_error(char *message, stack_t *monty_stack)
 {
 	free_stack(monty_stack);
 	fprintf(stderr, "%s", message);
-	if (file)
-		fclose(file);
+	if (globals.file)
+		fclose(globals.file);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -30,6 +30,6 @@ void push_error(unsigned int line_no, stack_t *monty_stack)
 {
 	free_stack(monty_stack);
 	fprintf(stderr, "L%u: usage: push integer\n", line_no);
-	fclose(file);
+	fclose(globals.file);
 	exit(EXIT_FAILURE);
 }
