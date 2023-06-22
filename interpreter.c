@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 		file_error(argv[1]);
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
-		if (line[0] == '\n')
+		if (line[0] == '\n' || line[0] == '#')
 			continue;
 		n = strlen(line);
 		if (n > 0 && line[n - 1] == '\n')
