@@ -65,6 +65,13 @@ void div_op(stack_t **stack, unsigned int line_number)
 		fclose(file);
 		exit(EXIT_FAILURE);
 	}
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		free_stack(*stack);
+		fclose(file);
+		exit(EXIT_FAILURE);
+	}
 	current = (*stack)->next;
 	current->n /= (*stack)->n;
 	pop_op(stack, line_number);
