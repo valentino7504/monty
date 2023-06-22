@@ -23,13 +23,19 @@ int main(int argc, char **argv)
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		if (line[0] == '\n' || line[0] == '#')
+		{
+			line_no++;
 			continue;
+		}
 		n = strlen(line);
 		if (n > 0 && line[n - 1] == '\n')
 			line[n - 1] = '\0';
 		opcode = strtok(line, " \t\n");
 		if (opcode == NULL || opcode[0] == '#')
+		{
+			line_no++;
 			continue;
+		}
 		call_opcode(opcode, line_no, &monty_stack);
 		line_no++;
 	}
