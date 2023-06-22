@@ -29,7 +29,7 @@ void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 	instruction_t instructions[] = {{"push", push_op}, {"pall", pall_op},
 	{"div", div_op}, {"pint", pint_op}, {"pop", pop_op}, {"nop", nop_op},
 	{"swap", swap_op}, {"mul", mul_op}, {"add", add_op}, {"sub", sub_op},
-	{"mod", mod_op}, {"pchar", pchar_op},{NULL, NULL}};
+	{"mod", mod_op}, {"pchar", pchar_op}, {"pstr", pstr_op}, {NULL, NULL}};
 	int i = 0;
 
 	while (instructions[i].opcode != NULL)

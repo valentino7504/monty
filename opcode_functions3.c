@@ -49,3 +49,27 @@ void pchar_op(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", (*stack)->n);
 }
+/**
+ * pstr_op - prints the stack as a string
+ * @stack: the stack to be printed from
+ * @line_number: the line number
+ */
+void pstr_op(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current_element = *stack;
+
+	(void) line_number;
+	if (*stack == NULL)
+	{
+		printf("\n");
+		return;
+	}
+	while (current_element != NULL)
+	{
+		if (current_element->n <= 0 || current_element->n > 127)
+			break;
+		printf("%c", current_element->n);
+		current_element = current_element->next;
+	}
+	printf("\n");
+}
