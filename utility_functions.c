@@ -30,7 +30,7 @@ void call_opcode(char *opcode, unsigned int line_no, stack_t **monty_stack)
 	{"div", div_op}, {"pint", pint_op}, {"pop", pop_op}, {"nop", nop_op},
 	{"swap", swap_op}, {"mul", mul_op}, {"add", add_op}, {"sub", sub_op},
 	{"mod", mod_op}, {"pchar", pchar_op}, {"pstr", pstr_op}, {"rotl", rotl_op},
-	{"rotr", rotr_op}, {"queue", queue_op}, {"stack", stack_op},{NULL, NULL}};
+	{"rotr", rotr_op}, {"queue", queue_op}, {"stack", stack_op}, {NULL, NULL}};
 	int i = 0;
 
 	while (instructions[i].opcode != NULL)
