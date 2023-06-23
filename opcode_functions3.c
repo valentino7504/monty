@@ -6,24 +6,38 @@
  */
 void mod_op(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current;
+	stack_t *current = *stack;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (*stack == NULL || (((*stack)->next == NULL && globals.mode == 0)
+	|| (((*stack)->prev == NULL) && globals.mode == 1)))
 	{
 		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		free_stack(*stack);
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-	if ((*stack)->n == 0)
+	if (globals.mode == 1)
+	{
+		while (current->prev)
+			current = current->prev;
+	}
+	if ((current)->n == 0)
 	{
 		fprintf(stderr, "L%u: division by zero\n", line_number);
 		free_stack(*stack);
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-	current = (*stack)->next;
-	current->n %= (*stack)->n;
+	if (globals.mode == 0)
+	{
+		current = (*stack)->next;
+		current->n %= (*stack)->n;
+	}
+	else
+	{
+		current = current->next;
+		current->n %= current->prev->n;
+	}
 	pop_op(stack, line_number);
 }
 /**
@@ -33,6 +47,8 @@ void mod_op(stack_t **stack, unsigned int line_number)
  */
 void pchar_op(stack_t **stack, unsigned int line_number)
 {
+	stack_t *current = *stack;
+
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
@@ -40,14 +56,19 @@ void pchar_op(stack_t **stack, unsigned int line_number)
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-	if ((*stack)->n < 0 || (*stack)->n > 127)
+	if (globals.mode == 1)
+	{
+		while (current->prev)
+			current = current->prev;
+	}
+	if ((current)->n < 0 || (current)->n > 127)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
 		free_stack(*stack);
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-	printf("%c\n", (*stack)->n);
+	printf("%c\n", (current)->n);
 }
 /**
  * pstr_op - prints the stack as a string
@@ -63,6 +84,11 @@ void pstr_op(stack_t **stack, unsigned int line_number)
 	{
 		printf("\n");
 		return;
+	}
+	if (globals.mode == 1)
+	{
+		while (current_element->prev)
+			current_element = current_element->prev;
 	}
 	while (current_element != NULL)
 	{

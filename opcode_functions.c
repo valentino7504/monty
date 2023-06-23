@@ -10,6 +10,11 @@ void pall_op(stack_t **stack, unsigned int line_no)
 
 	if (*stack == NULL)
 		return;
+	if (globals.mode == 1)
+	{
+		while (current_element->prev)
+			current_element = current_element->prev;
+	}
 	while (current_element)
 	{
 		printf("%d\n", current_element->n);
@@ -38,11 +43,24 @@ void push_op(stack_t **stack, unsigned int line_no)
 	if (new_element == NULL)
 		generic_error("Error: malloc failed\n", *stack);
 	new_element->n = n;
-	if (*stack != NULL)
-		(*stack)->prev = new_element;
-	new_element->next = *stack;
-	new_element->prev = NULL;
-	*stack = new_element;
+	if (globals.mode == 0)
+	{
+		if (*stack != NULL)
+			(*stack)->prev = new_element;
+		new_element->next = *stack;
+		new_element->prev = NULL;
+		*stack = new_element;
+		return;
+	}
+	else
+	{
+		if (*stack != NULL)
+			(*stack)->next = new_element;
+		new_element->prev = *stack;
+		new_element->next = NULL;
+		*stack = new_element;
+		return;
+	}
 }
 /**
  * pint_op - prints the value at the top of the stack
@@ -51,6 +69,8 @@ void push_op(stack_t **stack, unsigned int line_no)
  */
 void pint_op(stack_t **stack, unsigned int line_number)
 {
+	stack_t *current_element = *stack;
+
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
@@ -58,7 +78,12 @@ void pint_op(stack_t **stack, unsigned int line_number)
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack)->n);
+	if (globals.mode == 1)
+	{
+		while (current_element->prev)
+			current_element = current_element->prev;
+	}
+	printf("%d\n", (current_element)->n);
 }
 /**
  * pop_op - pops the value at the top of the stack
@@ -77,16 +102,27 @@ void pop_op(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	current = *stack;
-	if (current->next == NULL)
+	if ((current->next == NULL && globals.mode == 0) ||
+	(current->prev == NULL && globals.mode == 1))
 	{
 		free(current);
 		*stack = NULL;
+		return;
 	}
-	else
+	else if (globals.mode == 0)
 	{
 		*stack = current->next;
 		(*stack)->prev = NULL;
 		free(current);
+		return;
+	}
+	else
+	{
+		while (current->prev)
+			current = current->prev;
+		current->next->prev = NULL;
+		free(current);
+		return;
 	}
 }
 /**
@@ -96,10 +132,11 @@ void pop_op(stack_t **stack, unsigned int line_number)
  */
 void swap_op(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current, *next;
+	stack_t *current, *swap;
 	int temp;
 
-	if (*stack == NULL || (*stack)->next == NULL)
+	if (*stack == NULL || (((*stack)->next == NULL && globals.mode == 0)
+	|| (((*stack)->prev == NULL) && globals.mode == 1)))
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		free_stack(*stack);
@@ -107,8 +144,15 @@ void swap_op(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	current = *stack;
-	next = current->next;
+	if (globals.mode == 0)
+		swap = current->next;
+	else
+	{
+		while (current->prev->prev)
+			current = current->prev;
+		swap = current->prev;
+	}
 	temp = current->n;
-	current->n = next->n;
-	next->n = temp;
+	current->n = swap->n;
+	swap->n = temp;
 }

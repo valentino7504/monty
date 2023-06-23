@@ -9,10 +9,16 @@ void free_stack(stack_t *monty_stack)
 
 	if (current_element == NULL)
 		return;
-	if (current_element->next == NULL)
+	if ((current_element->next == NULL && globals.mode == 0) ||
+	(current_element->prev == NULL && globals.mode == 1))
 	{
 		free(current_element);
 		return;
+	}
+	if (globals.mode == 1)
+	{
+		while (current_element->prev)
+			current_element = current_element->prev;
 	}
 	next_element = current_element->next;
 	while (next_element)
